@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from devsign_app.views.company import CompanyAPIView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('company', CompanyAPIView.get())
 ]
