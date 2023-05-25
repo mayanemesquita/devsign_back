@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'devsign_admin.apps.DevsignAdminConfig',
+    'rest_framework',
     'devsign_app',
 ]
 

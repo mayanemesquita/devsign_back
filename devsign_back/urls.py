@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from devsign_app.views import CompanyAPIViewDetails
 from devsign_app.views.company import CompanyAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('company', CompanyAPIView.get())
+    path('company/', CompanyAPIView.as_view()),
+    path('company/<company_id>/', CompanyAPIViewDetails.as_view()),
 ]
