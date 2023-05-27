@@ -11,9 +11,12 @@ class Document(models.Model):
     signed = models.BooleanField(default=False)
     created_at = models.DateField(auto_created=True)
     update_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey('User', on_delete=models.SET_NULL, null=True)
+    company_associated = models.ManyToManyField('Company', blank=True, related_name='document_company')
 
     def __str__(self):
-        return self.document_id, self.name, self.deleted, self.deadline, self.signed, self.created_at, self.update_at
+        return '__all__'
 
     class Meta:
         db_table = 'document'
+        ordering = ['-created_at']

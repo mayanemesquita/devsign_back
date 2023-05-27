@@ -5,6 +5,8 @@ from rest_framework.views import APIView
 from devsign_app.models import Company
 from devsign_app.serializers.company.serializer import CompanySerializer
 
+NOT_EXISTS = " not exists"
+
 
 class CompanyAPIView(APIView):
     @staticmethod
@@ -26,13 +28,23 @@ class CompanyAPIViewDetails(APIView):
 
     @staticmethod
     def get(request, company_id, *args, **kwargs):
-        result = Company.objects.get(company_id=company_id)
-        serializer = CompanySerializer(result)
+        try:
+            result = Company.objects.get(company_id=company_id)
+            user = result.user
+        except Company.DoesNotExist:
+            return None
+
+        serializer = CompanySerializer(result, user)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @staticmethod
     def put(request, company_id, *args, **kwargs):
-        result = Company.objects.get(company_id)
+        result = Company.objects.get(company_id=company_id)
+        if not result:
+            return Response(
+                {"res": ("%s" % NOT_EXISTS)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
         serializer = CompanySerializer(result, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -41,6 +53,11 @@ class CompanyAPIViewDetails(APIView):
 
     @staticmethod
     def delete(request, company_id, *args, **kwargs):
-        result = Company.objects.get(company_id)
+        result = Company.objects.get(company_id=company_id)
+        if not result:
+            return Response(
+                {"res": ("%s" % NOT_EXISTS)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
         result.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

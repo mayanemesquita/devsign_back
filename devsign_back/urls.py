@@ -19,9 +19,11 @@ from django.urls import path
 
 from devsign_app.views import CompanyAPIViewDetails
 from devsign_app.views.company import CompanyAPIView
+from devsign_app.views.document import DocumentAPIViewController
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('company/', CompanyAPIView.as_view()),
     path('company/<company_id>/', CompanyAPIViewDetails.as_view()),
+    path('document/', DocumentAPIViewController.as_view()),
 ]
