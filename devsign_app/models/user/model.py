@@ -13,7 +13,6 @@ class User(models.Model):
     original_company = models.ForeignKey('Company', on_delete=models.SET_NULL, null=True)
     company_associated = models.ManyToManyField('Company', blank=True, related_name='user_company')
     associated_document = models.ManyToManyField('Document', blank=True, related_name="user_document")
-
     created_at = models.DateField(auto_created=True)
     update_at = models.DateTimeField(auto_now=True)
 

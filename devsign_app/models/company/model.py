@@ -17,8 +17,8 @@ class Company(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey('User', on_delete=models.SET_NULL, null=True)
-    guest_user = models.ManyToManyField('User', blank=True, related_name="company_guest")
-    associated_document = models.ManyToManyField('Document', blank=True, related_name="company_document")
+    guest_user = models.ManyToManyField('User', blank=True, related_name="guest_user")
+    associated_document = models.ManyToManyField('Document', blank=True, related_name="associated_document")
 
     def __str__(self):
         return '__all__'

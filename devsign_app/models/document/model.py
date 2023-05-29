@@ -9,10 +9,9 @@ class Document(models.Model):
     deleted = models.BooleanField(default=False)
     deadline = models.DateField(null=False)
     signed = models.BooleanField(default=False)
-    created_at = models.DateField(auto_created=True)
+    created_at = models.DateField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey('User', on_delete=models.SET_NULL, null=True)
-    company_associated = models.ManyToManyField('Company', blank=True, related_name='document_company')
 
     def __str__(self):
         return '__all__'
